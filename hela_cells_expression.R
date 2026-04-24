@@ -1,5 +1,4 @@
 # Visualiation of clusters with heatmaps
-# https://btep.ccr.cancer.gov/docs/data-visualization-with-r/Lesson5_intro_to_ggplot/#load-the-libraries
 install.packages("pheatmap")
 install.packages("tidyverse")
 install.packages("ggplotify")
