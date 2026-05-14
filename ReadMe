@@ -1,0 +1,362 @@
+# RNA-Seq Differential Expression & Heatmap Analysis
+
+A complete RNA-Seq analysis workflow in R for identifying differentially expressed genes, generating clustered heatmaps, performing PCA analysis, and visualizing gene expression patterns.
+
+This repository contains scripts for:
+
+* Differential expression analysis using `DESeq2`
+* Heatmap generation with hierarchical clustering
+* PCA visualization
+* Z-score normalization
+* RNA-Seq expression analysis in treated vs control samples
+
+---
+
+# Repository Structure
+
+```bash
+.
+├── DEseq_2024.R
+├── RNAseq.R
+├── hela_cells_expression.R
+├── airway_scaledcounts.csv
+├── airway_metadata.csv
+├── RNAseq_mat_top20.csv
+├── de_result.all.csv
+├── de_result.filtered.csv
+├── normalized_counts.csv
+├── heatmap_de.jpg
+├── rna_seq.jpg
+└── README.md
+```
+
+---
+
+# Overview
+
+This project demonstrates a complete RNA-Seq data analysis pipeline using publicly available airway dataset examples.
+
+The workflow includes:
+
+1. Loading RNA-Seq count data
+2. Metadata preprocessing
+3. Differential expression analysis
+4. Filtering significant genes
+5. Sample clustering
+6. Heatmap visualization
+7. PCA dimensionality reduction
+8. Exporting publication-quality figures
+
+---
+
+# Scripts Description
+
+## 1. `DEseq_2024.R`
+
+Performs differential gene expression analysis using the `DESeq2` package.
+
+### Features
+
+* Imports count matrix and metadata
+* Creates DESeq2 dataset
+* Filters low-count genes
+* Performs normalization
+* Computes differential expression
+* Generates:
+
+  * PCA plots
+  * Dispersion plots
+  * Heatmaps
+  * Z-score heatmaps
+* Exports filtered DE genes
+
+### Output Files
+
+| File                     | Description                         |
+| ------------------------ | ----------------------------------- |
+| `de_result.all.csv`      | All differential expression results |
+| `de_result.filtered.csv` | Significant DE genes                |
+| `normalized_counts.csv`  | Normalized count matrix             |
+
+---
+
+## 2. `RNAseq.R`
+
+Creates clustered heatmaps from RNA-Seq expression matrices.
+
+### Features
+
+* Row scaling
+* Hierarchical clustering
+* Sample annotations
+* Custom color palettes
+* Publication-quality heatmaps
+* JPEG export
+
+### Output
+
+| File          | Description             |
+| ------------- | ----------------------- |
+| `rna_seq.jpg` | Final clustered heatmap |
+
+---
+
+## 3. `hela_cells_expression.R`
+
+Performs manual expression preprocessing and clustering analysis.
+
+### Features
+
+* Removes NA values
+* Removes zero-count genes
+* Calculates treated/control averages
+* Computes log2 fold changes
+* Selects top expressed genes
+* Generates heatmaps with clustering
+
+### Output
+
+| File             | Description             |
+| ---------------- | ----------------------- |
+| `heatmap_de.jpg` | Heatmap of top DE genes |
+
+---
+
+# Installation
+
+## Clone Repository
+
+```bash
+git clone https://github.com/yourusername/rnaseq-analysis.git
+cd rnaseq-analysis
+```
+
+---
+
+# Required R Packages
+
+Install all required packages before running the scripts.
+
+```r
+install.packages("pheatmap")
+install.packages("tidyverse")
+install.packages("ggplotify")
+install.packages("heatmaply")
+install.packages("ggrepel")
+install.packages("RColorBrewer")
+
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("DESeq2")
+```
+
+---
+
+# Input Data
+
+## `airway_scaledcounts.csv`
+
+RNA-Seq count matrix.
+
+* Rows = genes
+* Columns = samples
+
+---
+
+## `airway_metadata.csv`
+
+Sample metadata file containing treatment information.
+
+Example:
+
+| Sample     | dex     |
+| ---------- | ------- |
+| SRR1039508 | control |
+| SRR1039509 | treated |
+
+---
+
+## `RNAseq_mat_top20.csv`
+
+Expression matrix for top 20 differentially expressed genes.
+
+---
+
+# Usage
+
+## Step 1 — Set Working Directory
+
+Update the working directory in each script:
+
+```r
+setwd("path/to/project")
+```
+
+---
+
+## Step 2 — Run Differential Expression Analysis
+
+```r
+source("DEseq_2024.R")
+```
+
+---
+
+## Step 3 — Generate Heatmaps
+
+```r
+source("RNAseq.R")
+```
+
+---
+
+## Step 4 — Run HeLa Cell Expression Analysis
+
+```r
+source("hela_cells_expression.R")
+```
+
+---
+
+# Analysis Workflow
+
+```text
+Raw Count Data
+       ↓
+Metadata Processing
+       ↓
+DESeq2 Normalization
+       ↓
+Differential Expression Analysis
+       ↓
+Gene Filtering
+       ↓
+PCA & Clustering
+       ↓
+Heatmap Visualization
+       ↓
+Export Results
+```
+
+---
+
+# Visualization Examples
+
+## Heatmaps
+
+* Row-scaled expression heatmaps
+* Hierarchical clustering
+* Treatment annotations
+* Z-score normalization
+
+### Color Scheme
+
+| Color | Meaning           |
+| ----- | ----------------- |
+| Blue  | Low expression    |
+| White | Medium expression |
+| Red   | High expression   |
+
+---
+
+## PCA Plot
+
+Used to visualize clustering of treated and control samples.
+
+---
+
+# Differential Expression Criteria
+
+Genes are considered significantly differentially expressed if:
+
+```text
+Adjusted p-value (padj) < 0.05
+AND
+|log2FoldChange| > 1
+```
+
+---
+
+# Key Packages Used
+
+| Package        | Purpose                          |
+| -------------- | -------------------------------- |
+| `DESeq2`       | Differential expression analysis |
+| `pheatmap`     | Heatmap visualization            |
+| `tidyverse`    | Data wrangling                   |
+| `ggplot2`      | Plotting                         |
+| `RColorBrewer` | Color palettes                   |
+| `heatmaply`    | Interactive heatmaps             |
+
+---
+
+# Example Outputs
+
+## Differential Expression Results
+
+```text
+Gene ID
+log2FoldChange
+pvalue
+padj
+```
+
+---
+
+## Heatmap Output
+
+* Clustered genes
+* Clustered samples
+* Treatment annotations
+* Expression intensity visualization
+
+---
+
+# Applications
+
+This workflow can be applied to:
+
+* RNA-Seq analysis
+* Cancer genomics
+* Drug response studies
+* Biomarker discovery
+* Gene expression profiling
+* Machine learning preprocessing for genomics
+
+---
+
+# Notes
+
+* Ensure metadata sample names match count matrix columns.
+* DESeq2 requires raw count data.
+* Heatmaps perform best after normalization/scaling.
+* Remove low-count genes to improve statistical power.
+
+---
+
+# Future Improvements
+
+* Volcano plot generation
+* Interactive heatmaps
+* Functional enrichment analysis
+* GO/KEGG pathway analysis
+* Automated report generation
+* Shiny dashboard integration
+
+---
+
+# License
+
+This project is licensed under the MIT License.
+
+---
+
+# Author
+
+RNA-Seq Bioinformatics Workflow in R using:
+
+* DESeq2
+* pheatmap
+* tidyverse
+* ggplot2
