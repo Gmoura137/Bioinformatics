@@ -363,18 +363,6 @@ Potential future additions include:
 
 # License
 
-This project is licensed under the MIT License.
+This project is open source.
 
----
 
-# Author
-
-RNA-Seq Bioinformatics Workflow in R using:
-
-* `DESeq2`
-* `pheatmap`
-* `tidyverse`
-* `ggplot2`
-* `heatmaply`
-
-Developed for RNA-Seq differential expression and visualization analysis.
